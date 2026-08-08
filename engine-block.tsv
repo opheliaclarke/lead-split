@@ -1,0 +1,2 @@
+Total Rev	Total Cost	Net P/L	Share Tyson	Share Berry	Cash Tyson	Cash Berry	Settle Tyson	Settle Berry	Check attribution	Check balances
+=F2+G2+H2	=I2+J2	=K2-L2	=M2/2	=M2/2	=H2-I2	=F2+G2-J2	=N2-P2	=O2-Q2	=ROUND(P2+Q2-M2,6)	=ROUND(R2+S2,6)
