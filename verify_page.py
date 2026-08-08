@@ -64,3 +64,25 @@ print("  Spent/TFN trap: +33 cost, −16.50 share, −83.50 payment, checks sile
 for n in ["629.31","314.655","332.655","33.17","104","16.00","18.09","24.00","30.00","83.50"]:
     assert n in page, f"MISSING: {n}"
 print("  all quoted numbers present ✓\nPAGE VERIFIED")
+
+# ---------------------------------------------------- 8 August figures on the page
+from fractions import Fraction as Fr
+TY, AC = Fr(304), Fr(378)
+net = TY - AC; prof = net/2; settle = prof - (TY - AC)
+assert net == -74 and prof == -37 and settle == 37, (net, prof, settle)
+for n in ["+304.00", "−378.00", "−74.00", "−37.00", "+$37.00", "253.26", "+50.74", "+$25.37", "564.18"]:
+    assert n in page, f"8-Aug figure MISSING from page: {n}"
+# scenario table rows
+for rb, t, nt, pr in [(0,0,-74,-37),(0,30,-104,-52),(48,30,-56,-28),(160,30,56,28),(400,30,296,148)]:
+    assert TY + rb - AC - t == nt, (rb, t)
+    assert Fr(nt, 2) == pr, (nt, pr)
+    st = pr - (TY - AC)
+    assert f"${float(st):,.2f}" in page, f"scenario settlement {st} missing"
+# break-even
+assert AC - TY == 74 and "9 leads" in page
+# the two readings really do flip direction
+altc = AC * Fr(67,100); altnet = TY - altc
+assert altnet > 0 and (altnet/2 - (TY-altc)) < 0, "reading B must flip the direction"
+assert float(altc) == 253.26 and float(altnet) == 50.74
+print("  8 August figures verified (both readings of 378) ✓")
+print("  Profit columns renamed:", "Profit Tyson" in page and "Profit Berry" in page)

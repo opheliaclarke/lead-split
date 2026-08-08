@@ -123,6 +123,91 @@
   and this time each check is tested against the specific failures it is supposed to catch.
 </div>
 
+
+<h2>8 August — the row you just described</h2>
+
+<div class="warn">
+  <strong>Heads up: row 3 is empty in the sheet</strong>
+  I pulled the file twice through two different Google endpoints just now and <strong>8 August isn't
+  there</strong> — only the 7 August row and the loose <code>330</code>. Your edit may not have saved,
+  or it went into a different copy. Everything below is calculated from the numbers in your message.
+</div>
+
+<p>You gave me two of the four numbers a day needs: <strong>actual cost 378</strong> and
+<strong>Tyson collected 304</strong> (a clean 38 leads at $8). Missing: <strong>what Berry sold</strong>
+(Dino + Olivia) and <strong>the TFN cost</strong>.</p>
+
+<h3>If Berry sold nothing that day and there's no TFN yet</h3>
+
+<div class="pair">
+  <div class="person">
+    <h3>Tyson</h3>
+    <div class="row"><span>Collected (38 leads)</span><b class="pos">+304.00</b></div>
+    <div class="row"><span>Paid campaign cost</span><b class="neg">−378.00</b></div>
+    <div class="row"><span>So he is holding</span><b class="neg">−74.00</b></div>
+    <div class="row"><span><strong>Profit</strong></span><b class="neg">−37.00</b></div>
+    <div class="settle get">Receives <b>+$37.00</b></div>
+  </div>
+  <div class="person">
+    <h3>Berry</h3>
+    <div class="row"><span>Collected</span><b>0.00</b></div>
+    <div class="row"><span>Paid</span><b>0.00</b></div>
+    <div class="row"><span>So he is holding</span><b>0.00</b></div>
+    <div class="row"><span><strong>Profit</strong></span><b class="neg">−37.00</b></div>
+    <div class="settle pay">Pays <b>−$37.00</b></div>
+  </div>
+</div>
+
+<p>Revenue <strong>$304</strong> against cost <strong>$378</strong> = a <strong>$74 loss</strong>, so
+<strong>the profit for each party is −$37.00</strong> — they both lose $37. Tyson is $74 out of pocket
+and only owes $37 of it, so <strong>Berry pays Tyson $37.00</strong>. Much better day than the 7th.</p>
+
+<h3>Plug in Berry's numbers when you have them</h3>
+<div class="tw"><table>
+  <thead><tr><th class="n">Berry's revenue</th><th class="n">TFN</th><th class="n">Net</th><th class="n">Profit each</th><th>Settlement</th></tr></thead>
+  <tbody>
+    <tr><td class="n">0</td><td class="n">0</td><td class="n neg">−74.00</td><td class="n neg">−37.00</td><td>Berry pays Tyson $37.00</td></tr>
+    <tr><td class="n">0</td><td class="n">30</td><td class="n neg">−104.00</td><td class="n neg">−52.00</td><td>Berry pays Tyson $22.00</td></tr>
+    <tr><td class="n">48</td><td class="n">30</td><td class="n neg">−56.00</td><td class="n neg">−28.00</td><td>Berry pays Tyson $46.00</td></tr>
+    <tr><td class="n">160</td><td class="n">30</td><td class="n pos">+56.00</td><td class="n pos">+28.00</td><td>Berry pays Tyson $102.00</td></tr>
+    <tr><td class="n">400</td><td class="n">30</td><td class="n pos">+296.00</td><td class="n pos">+148.00</td><td>Berry pays Tyson $222.00</td></tr>
+  </tbody>
+</table></div>
+
+<p>With TFN at 0, the day breaks even once Berry brings in <strong>$74</strong> — about
+<strong>9 leads</strong>. Notice Berry pays Tyson in every row: Tyson is holding all the cost, so he is
+always owed money back, and the more the day earns the <em>more</em> he is owed.</p>
+
+<div class="stop">
+  <strong>⚠ Before you type 378 anywhere — it flips the answer</strong>
+  Column <code>E</code> is <strong>Spent</strong>, and the sheet turns it into Actual Cost by
+  <strong>× 0.67</strong>. So:
+  <br><br>
+  • If <strong>378 is already the actual cost</strong> → net <strong>−74.00</strong>, profit
+  <strong>−$37.00</strong> each, <strong>Berry pays Tyson $37.00</strong>.
+  <br>
+  • If you <strong>type 378 into the Spent column</strong>, the sheet computes 378 × 0.67 =
+  <strong>253.26</strong> → net <strong>+50.74</strong>, profit <strong>+$25.37</strong> each, and
+  <strong>Tyson pays Berry $25.37</strong>.
+  <br><br>
+  <strong>Same 378, opposite direction of payment, and a loss turns into a profit.</strong> Tell me
+  which one 378 is and I'll set the row up properly. (For 378 to come out as the actual, the Spent
+  figure would have to be 564.18.)
+</div>
+
+<div class="note">
+  <strong>Your profit column already exists — I've just renamed it</strong>
+  In the engine below it was called <em>Share Tyson</em> / <em>Share Berry</em>; those are exactly the
+  profit-per-partner figures you're asking for, so they now read <strong>Profit Tyson</strong>
+  (<code>P2</code>) and <strong>Profit Berry</strong> (<code>Q2</code>), both <code>=O2/2</code>. No new
+  column needed — adding a second one would just be the same number twice and something to disagree
+  with itself later.
+  <br><br>
+  Keep <strong>Profit</strong> and <strong>Settlement</strong> apart in your head: <em>Profit</em> is
+  what each of you earned or lost that day. <em>Settlement</em> is the cash that moves to make it true.
+  On 8 August they're −$37.00 and $37.00 — close together by coincidence, not the same thing.
+</div>
+
 <h2>The whole system in one line</h2>
 
 <div class="rule">
@@ -183,7 +268,7 @@ on both sides.</p>
 
 <div class="copybox">
   <div class="copybar"><span>paste at K1 — fills K1:V2, 12 columns</span><button class="copybtn">Copy</button></div>
-  <div class="copyscroll"><pre>Other cost (Tyson)	Other cost (Berry)	Total Rev	Total Cost	Net P/L	Share Tyson	Share Berry	Tyson in-out	Berry in-out	Settlement	Check rev path	Check balance
+  <div class="copyscroll"><pre>Other cost (Tyson)	Other cost (Berry)	Total Rev	Total Cost	Net P/L	Profit Tyson	Profit Berry	Tyson in-out	Berry in-out	Settlement	Check rev path	Check balance
 0	0	=F2+G2+H2	=I2+J2+K2+L2	=M2-N2	=O2/2	=O2/2	=H2-I2-K2	=F2+G2-J2-L2	=P2-R2	=ROUND((B2+C2+D2)*8-M2,6)	=ROUND((P2+Q2)-(R2+S2),6)</pre></div>
 </div>
 
@@ -205,8 +290,8 @@ on both sides.</p>
     <tr><td><code>M2</code></td><td>Total Rev</td><td><code>=F2+G2+H2</code></td><td class="n">200</td></tr>
     <tr><td><code>N2</code></td><td>Total Cost</td><td><code>=I2+J2+K2+L2</code></td><td class="n">829.31</td></tr>
     <tr><td><code>O2</code></td><td>Net P/L</td><td><code>=M2-N2</code></td><td class="n neg">−629.31</td></tr>
-    <tr><td><code>P2</code></td><td>Share Tyson</td><td><code>=O2/2</code></td><td class="n neg">−314.655</td></tr>
-    <tr><td><code>Q2</code></td><td>Share Berry</td><td><code>=O2/2</code></td><td class="n neg">−314.655</td></tr>
+    <tr><td><code>P2</code></td><td><strong>Profit Tyson</strong></td><td><code>=O2/2</code></td><td class="n neg">−314.655</td></tr>
+    <tr><td><code>Q2</code></td><td><strong>Profit Berry</strong></td><td><code>=O2/2</code></td><td class="n neg">−314.655</td></tr>
     <tr><td><code>R2</code></td><td>Tyson in − out</td><td><code>=H2-I2-K2</code></td><td class="n neg">−647.31</td></tr>
     <tr><td><code>S2</code></td><td>Berry in − out</td><td><code>=F2+G2-J2-L2</code></td><td class="n pos">18</td></tr>
     <tr><td><code>T2</code></td><td>Settlement</td><td><code>=P2-R2</code></td><td class="n pos">+332.655</td></tr>

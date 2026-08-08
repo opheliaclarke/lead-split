@@ -1,2 +1,2 @@
-Other cost (Tyson)	Other cost (Berry)	Total Rev	Total Cost	Net P/L	Share Tyson	Share Berry	Tyson in-out	Berry in-out	Settlement	Check rev path	Check balance
+Other cost (Tyson)	Other cost (Berry)	Total Rev	Total Cost	Net P/L	Profit Tyson	Profit Berry	Tyson in-out	Berry in-out	Settlement	Check rev path	Check balance
 0	0	=F2+G2+H2	=I2+J2+K2+L2	=M2-N2	=O2/2	=O2/2	=H2-I2-K2	=F2+G2-J2-L2	=P2-R2	=ROUND((B2+C2+D2)*8-M2,6)	=ROUND((P2+Q2)-(R2+S2),6)
