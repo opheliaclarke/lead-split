@@ -1,7 +1,35 @@
 # lead-split — Tyson & Berry lead-sale settlement
 
-**Status:** DELIVERED 2026-08-08, then **DEEP RE-VERIFIED same day** on Bob's request. Verdict
-**unchanged**. Page LIVE. **Bob's sheet still NOT edited by me — no write path** (see below).
+**Status:** DELIVERED 2026-08-08 → deep re-verified → **turned into a formal, proved ENGINE** on Bob's
+third pass (*"this will be the BASIS of this sheet… use all the mathematical knowledge you have"*).
+Verdict **unchanged through all three passes**. Page LIVE. **Bob's sheet still NOT edited by me — no
+write path** (see below). 🛑 **Bob killed the half-cent discussion — do not raise rounding again.**
+
+## THE ENGINE (the deliverable now — paste at K1, fills K1:U2, A–J untouched)
+
+| Cell | Name | Formula |
+|---|---|---|
+| K2 | Total Rev | `=F2+G2+H2` |
+| L2 | Total Cost | `=I2+J2` |
+| M2 | Net P/L | `=K2-L2` |
+| N2 / O2 | Share Tyson / Berry | `=M2/2` |
+| P2 | Cash Tyson | `=H2-I2` |
+| Q2 | Cash Berry | `=F2+G2-J2` |
+| R2 | Settle Tyson | `=N2-P2` (+ = receives) |
+| S2 | Settle Berry | `=O2-Q2` (− = pays) |
+| T2 | Check attribution | `=ROUND(P2+Q2-M2,6)` must be 0 |
+| U2 | Check balances | `=ROUND(R2+S2,6)` must be 0 |
+
+**The one rule:** `settlement = half the net − what you collected + what you paid`.
+**Extension rule** (when Berry's other costs land in, say, V2): change **exactly two** cells —
+`L2 =I2+J2+V2` and `Q2 =F2+G2-J2-V2`. A cost must enter the pool **and** be attributed to its payer;
+forget the second and T2 shows the exact amount forgotten.
+
+⚠ **`ROUND(…,6)` is REQUIRED, not cosmetic.** Measured over 100,000 random rows: the raw balance check
+is non-zero **48.2%** of the time (attribution 28.1%), worst residue **7.3e-12**. Today's row cancels to
+a clean 0.0 **by luck**. A real error is ~1e9× bigger, so 6 dp hides noise and nothing else.
+⚠ My first float test used `Decimal("0.67")` — which is **exact**, so it proved nothing; the assert
+caught the overclaim. Use real IEEE floats when testing float behaviour.
 
 Deliverable: **https://opheliaclarke.github.io/lead-split/** (noindex + robots disallow; public repo
 because Pages needs it on the free plan — flagged to Bob since it holds partner financials).
@@ -97,6 +125,31 @@ Sheets **and** Drive APIs are **disabled on project `coolizi-gsc`** (the only SA
 **cannot self-enable** them (403 PERMISSION_DENIED). Even enabled, it would still need Editor on the
 file. See [[no-google-sheets-write-access]].
 
+## The six proved properties (`basis.py`)
+
+Formalised as: partners `p`, weights `w_p` (sum 1); `R`=revenue, `X`=cost, `N=R−X`; `C_p` collected,
+`D_p` paid, cash `A_p=C_p−D_p`; entitlement `E_p=w_p·N`; **settlement `s_p=E_p−A_p`**.
+
+1. **Conservation** — `sum(s_p) = 0` always.
+2. **Lands on share** — `A_p + s_p = E_p`.
+3. **Partition** — `sum(A_p) = N`. ⭐ This is the load-bearing condition: **every revenue and every
+   cost must be attributed to exactly one partner.** T2 tests precisely this.
+4. **Uniqueness** — `s` is the only vector with those properties, so there is no rival "fairer" number.
+5. ⭐ **Additivity** — `s` is linear in the inputs ⇒ **summing daily settlements = settling once on
+   period totals.** Settle daily/weekly/monthly, identical answer. Matters for a multi-row sheet.
+6. ⭐ **Invariance** — moving a cost between partners changes **neither the net nor either share**,
+   only the transfer. Mis-tagging who paid cannot corrupt the P&L.
+
+Proved for all inputs, then property-tested on **4,000 randomised cases** (profits, losses, 2/3/5
+partners, exact `Fraction`). Engine formulas separately checked against the model on **3,000 more
+random rows** — the step that catches a formula accidentally right at today's numbers.
+
+⭐ **What the checks CATCH:** unattributed cost/revenue, double-attributed cost, the dropped
+"+ what you paid" term — and **the residual equals the size of the error**.
+⭐ **What they DO NOT catch:** a wrong split ratio that still sums to 1 (60/40 → check still 0), a
+mistyped lead count or spend, and **sending the transfer the wrong way** (an execution error, not a
+sheet error). Those need the eye: read the Share columns, obey the sign.
+
 ## Verification performed
 
 - `model.py` — raw inputs → result with **`Fraction`, never float**; 7 double-entry assertions.
@@ -117,12 +170,14 @@ Keep decomposition asserts — they're the reason the 15 + 0.345 split is trustw
 
 ## Open — needs Bob
 
-1. **Half-cent:** $314.655 isn't payable. $332.66 puts the cent on Berry, $332.65 on Tyson. Pick one.
-2. **The 0.67 haircut** — confirm it's a real cost reduction already banked, not a pending rebate.
+1. 🛑 **Half-cent: CLOSED.** Bob: *"FORGET THE HALF CENTS!!!"* Never raise rounding again.
+2. **The 0.67 haircut** — confirm it's a real cost reduction already banked, not a pending rebate
+   ($393.69, 33% of spend). Asked twice, not yet answered.
 3. **50/50 confirmed?** Assumed throughout, matching the sheet's own halving.
 
 ## Files
 
 `model.py` · `proof.py` · `verify_fixes.py` · `verify_formulas.py` · `verify_page.py` · `qa.py` ·
-`index.html` · `paste-block.tsv` (full 11-col ledger, superseded by the smaller fix options) ·
+`basis.py` (the formal system + 6 theorems) · `verify_basis_sheet.py` (engine vs model, 3,000 rows) ·
+`engine-block.tsv` (the paste block) · `index.html` · `paste-block.tsv` (earlier ledger, superseded) ·
 `original-sheet-snapshot.csv` (first pull) · `sheet-snapshot-0808-recheck.csv/.xlsx` (post-change).
