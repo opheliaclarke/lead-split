@@ -199,3 +199,26 @@ Keep decomposition asserts — they're the reason the 15 + 0.345 split is trustw
 `basis.py` (the formal system + 6 theorems) · `verify_basis_sheet.py` (engine vs model, 3,000 rows) ·
 `engine-block.tsv` (the paste block) · `index.html` · `paste-block.tsv` (earlier ledger, superseded) ·
 `original-sheet-snapshot.csv` (first pull) · `sheet-snapshot-0808-recheck.csv/.xlsx` (post-change).
+
+## 8 AUGUST (asked 2026-08-08) — row 3 is EMPTY in the sheet
+
+Bob said he added sample figures for 8 Aug; **two Google endpoints (csv export + gviz) both show row 3
+blank**. Computed from his message instead: **actual cost 378, Tyson collected 304** (= 38 leads @ $8,
+clean). **Missing: Berry's leads/revenue and the TFN.**
+
+With Berry at 0 and TFN 0 → revenue 304, cost 378, **net −74, PROFIT −$37.00 EACH, Berry pays Tyson
+$37.00**. General form: `net = Rb − T − 74` · `profit each = (Rb−T−74)/2` · `Tyson receives
+= (Rb−T+74)/2`. Break-even needs Berry to bring **$74 (≈9 leads)** if TFN is 0. **Berry pays Tyson in
+every scenario** — Tyson carries all the cost, so he is always owed back, and *more* as the day earns more.
+
+🛑 **UNRESOLVED AND IT FLIPS THE ANSWER: is 378 the actual cost, or the Spent figure?**
+Column E is Spent and the sheet does **×0.67**. 378 as actual → net −74, profit −$37 each, **Berry pays
+Tyson $37**. 378 typed into Spent → actual 253.26 → net **+50.74**, profit **+$25.37** each, and
+**Tyson pays Berry $25.37**. *Same number, opposite direction, loss becomes profit.* (For 378 to be the
+actual, Spent would have to be 564.18.) **Asked Bob; do not assume.**
+
+⭐ **"New profit column" — did NOT add one.** The engine's `P2`/`Q2` (`=O2/2`) already were exactly
+that; **renamed `Share Tyson`/`Share Berry` → `Profit Tyson`/`Profit Berry`**. A second column would be
+the same number twice and would eventually disagree with itself. ⚠ Keep **Profit** (what each earned)
+and **Settlement** (the cash that moves) distinct — on 8 Aug they are −$37.00 and $37.00, close by
+coincidence only.
