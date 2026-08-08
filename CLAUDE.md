@@ -5,31 +5,49 @@ third pass (*"this will be the BASIS of this sheet… use all the mathematical k
 Verdict **unchanged through all three passes**. Page LIVE. **Bob's sheet still NOT edited by me — no
 write path** (see below). 🛑 **Bob killed the half-cent discussion — do not raise rounding again.**
 
-## THE ENGINE (the deliverable now — paste at K1, fills K1:U2, A–J untouched)
+## THE ENGINE v2 (paste at K1 → K1:V2, plus W2; A–J untouched)
 
-| Cell | Name | Formula |
-|---|---|---|
-| K2 | Total Rev | `=F2+G2+H2` |
-| L2 | Total Cost | `=I2+J2` |
-| M2 | Net P/L | `=K2-L2` |
-| N2 / O2 | Share Tyson / Berry | `=M2/2` |
-| P2 | Cash Tyson | `=H2-I2` |
-| Q2 | Cash Berry | `=F2+G2-J2` |
-| R2 | Settle Tyson | `=N2-P2` (+ = receives) |
-| S2 | Settle Berry | `=O2-Q2` (− = pays) |
-| T2 | Check attribution | `=ROUND(P2+Q2-M2,6)` must be 0 |
-| U2 | Check balances | `=ROUND(R2+S2,6)` must be 0 |
+`K Other cost (Tyson)` **0** · `L Other cost (Berry)` **0** · `M Total Rev =F2+G2+H2` ·
+`N Total Cost =I2+J2+K2+L2` · `O Net =M2-N2` · `P/Q Share =O2/2` · `R Tyson in−out =H2-I2-K2` ·
+`S Berry in−out =F2+G2-J2-L2` · `T Settlement =P2-R2` · `U Check rev path =ROUND((B2+C2+D2)*8-M2,6)` ·
+`V Check balance =ROUND((P2+Q2)-(R2+S2),6)` · **`W2` = plain-English "Berry pays Tyson $332.66"**
+(`=IF(ROUND(T2,2)>0,…)` — in `engine-v2-instruction.txt`).
 
 **The one rule:** `settlement = half the net − what you collected + what you paid`.
-**Extension rule** (when Berry's other costs land in, say, V2): change **exactly two** cells —
-`L2 =I2+J2+V2` and `Q2 =F2+G2-J2-V2`. A cost must enter the pool **and** be attributed to its payer;
-forget the second and T2 shows the exact amount forgotten.
 
-⚠ **`ROUND(…,6)` is REQUIRED, not cosmetic.** Measured over 100,000 random rows: the raw balance check
-is non-zero **48.2%** of the time (attribution 28.1%), worst residue **7.3e-12**. Today's row cancels to
-a clean 0.0 **by luck**. A real error is ~1e9× bigger, so 6 dp hides noise and nothing else.
-⚠ My first float test used `Decimal("0.67")` — which is **exact**, so it proved nothing; the assert
-caught the overclaim. Use real IEEE floats when testing float behaviour.
+🛑 **v1 SHIPPED A WRONG CLAIM — corrected on the live page.** I told Bob the checks `P2+Q2-M2` and
+`R2+S2` would catch an unattributed cost. **They are algebraic tautologies** — identically 0 for ANY
+data (proved symbolically + 50,000 random rows), and `R+S ≡ −(P+Q−M)` so the pair was redundant. They
+catch **formula damage only**. Money figures were never affected. See [[partner-settlement-model]].
+
+**v2 changes, each forced by the design audit:**
+1. **A free cost cell per partner** (K, L) — extending is now *typing a number*, not editing two
+   formulas one of which you'd eventually forget.
+2. **One settlement + a sentence** instead of a mirrored ± pair (mirrors add no information and double
+   the sign-misread surface — this sheet already shipped a sign-inverted cell).
+3. **Non-redundant checks:** `U` is computed by a **different path** (lead counts, not the Rev columns)
+   so it catches a typed-over `F2` (−67.00) which `V` cannot; `V` catches a damaged share formula
+   (+104.885) and an unattributed cost (−125.00) which `U` cannot. Both verified firing.
+
+⚠ **Measured: what the checks CANNOT see** (all read 0, settlement still wrong by):
+missing 4 leads **$16.00** · spend typed 1139 not 1193 **$18.09** · 3 leads credited to the wrong
+partner **$24.00** · a cost typed against the wrong partner **$30.00** · block pasted as static values
+**$332.66**. ⇒ **"0" means the formulas are intact, NOT that the numbers are right.** Only an external
+tie-out (bank statement / ad invoice) validates data.
+
+⭐ **Error-cost rule:** `Δsettlement = Δnet/2 − Δ(own position)` — a **pool** error moves the payment by
+**half**, a **custody** error (wrong payer/collector) by the **full** amount.
+
+⚠ **Trap: never move money between `Spent` and `TFN`.** "Berry reimbursed Tyson $100 of ad spend"
+typed as `E2−100, J2+100` **raises total cost $33** (0.67 applies to E2 only), moves each share
+−$16.50 and the payment −$83.50 — **both checks silent**. A transfer between partners is not a cost.
+⚠ **Never `SUM` a check column** (+50 and −50 cancel) — use `COUNTIF(U2:U1000,"<>0")`.
+⚠ **Additivity holds only while the split stays 50/50 on every row.**
+
+⚠ **`ROUND(…,6)` is REQUIRED.** Over 100,000 random rows the raw balance check is non-zero **48.2%**
+of the time, worst residue **7.3e-12**; today's row cancels to 0.0 **by luck**. A real error is ~1e9×
+bigger. ⚠ My first float test used `Decimal("0.67")` — **exact**, so it proved nothing; test float
+behaviour with real IEEE floats.
 
 Deliverable: **https://opheliaclarke.github.io/lead-split/** (noindex + robots disallow; public repo
 because Pages needs it on the free plan — flagged to Bob since it holds partner financials).
