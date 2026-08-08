@@ -1,53 +1,66 @@
 #!/usr/bin/env python3
-"""Pull every formula and number OFF the built page and prove them independently."""
+"""Pull every formula off the built page and prove it against engine_v2."""
 import re, html
 from fractions import Fraction as F
-import basis
+import engine_v2 as E
 
 page = open('index.html', encoding='utf-8').read()
 blocks = [html.unescape(m) for m in re.findall(r'<pre>(.*?)</pre>', page, re.S)]
-print("copy blocks on page:", len(blocks))
+print("copy blocks:", len(blocks))
+assert len(blocks) == 2, f"expected engine + instruction, got {len(blocks)}"
 
-# 1) the engine block must be byte-identical to the verified generated TSV
-disk = open('engine-block.tsv').read().rstrip('\n')
-engine = blocks[0].strip('\n')
-assert engine == disk, "PAGE ENGINE BLOCK DIFFERS FROM THE VERIFIED TSV"
-rows = [r.split('\t') for r in engine.split('\n')]
-assert len(rows) == 2 and all(len(r) == 11 for r in rows), f"must be 2x11, got {[len(r) for r in rows]}"
-print(f"  engine block: byte-identical to engine-block.tsv, {engine.count(chr(9))} tabs, 2x11 ✓")
+eng = blocks[0].strip('\n')
+assert eng == open('engine-v2-block.tsv').read().rstrip('\n'), "engine block drifted from verified TSV"
+rows = [r.split('\t') for r in eng.split('\n')]
+assert len(rows) == 2 and all(len(r) == 12 for r in rows), [len(r) for r in rows]
+print(f"  engine block byte-identical, 2x12, {eng.count(chr(9))} tabs ✓")
 
-# 2) evaluate the engine formulas straight off the page
-cells = {"B2":F(2),"C2":F(4),"D2":F(19),"E2":F(1193),"J2":F(30)}
-cells["F2"]=cells["C2"]*8; cells["G2"]=cells["B2"]*8; cells["H2"]=cells["D2"]*8
-cells["I2"]=cells["E2"]*F(67,100)
-def _round(x,n): q=F(10)**int(n); return F(round(x*q))/q
-cols = [chr(c) for c in range(ord('K'), ord('U')+1)]
-for col, f in zip(cols, rows[1]):
-    e = re.sub(r"ROUND\(([^,]+),\s*(\d+)\)", r"_round(\1,\2)", f.lstrip('='))
-    e = re.sub(r"\b([A-U]2)\b", lambda m: f'c["{m.group(1)}"]', e)
-    cells[col+"2"] = eval(e, {"__builtins__":{}}, {"c":cells,"_round":_round})
+instr = blocks[1].strip()
+assert instr == E.INSTRUCTION, "instruction cell drifted"
+print("  instruction cell byte-identical ✓")
 
-m = basis.settle({"T":F(152),"B":F(48)}, {"T":F(1193)*F(67,100),"B":F(30)},
-                 {"T":F(1,2),"B":F(1,2)})
-want = {"K2":m["R"],"L2":m["X"],"M2":m["N"],"N2":m["E"]["T"],"O2":m["E"]["B"],
-        "P2":m["A"]["T"],"Q2":m["A"]["B"],"R2":m["s"]["T"],"S2":m["s"]["B"],
-        "T2":F(0),"U2":F(0)}
-for k,v in want.items():
-    assert cells[k]==v, f"{k}: page gives {cells[k]}, model says {v}"
-    print(f"  {k:<3} = {float(cells[k]):>11.4f}  matches model ✓")
+# formulas on the page must match ENGINE definition exactly
+assert rows[0] == [l for _c, l, _f in E.ENGINE], "headers drifted"
+assert rows[1] == [f for _c, _l, f in E.ENGINE], "formulas drifted"
+print("  headers and formulas match engine_v2.ENGINE ✓")
 
-# 3) the two extension formulas shown on the page
-ext = [b.strip() for b in blocks[1:]]
-assert ext == ["=I2+J2+V2", "=F2+G2-J2-V2"], f"extension formulas changed: {ext}"
-c2 = dict(cells); c2["V2"]=F(125)
-L = c2["I2"]+c2["J2"]+c2["V2"]; Q = c2["F2"]+c2["G2"]-c2["J2"]-c2["V2"]
-M = c2["K2"]-L; P = c2["H2"]-c2["I2"]
-assert (M/2-P)+(M/2-Q)==0, "extension must stay zero-sum"
-assert P+Q==M, "extension must stay attributed"
-print(f"  extension formulas verified (added 125 of Berry cost -> still balances) ✓")
+c = E.build(2, 4, 19, 1193, 30)
+want = {"M2": F(200), "N2": F(82931,100), "O2": F(-62931,100),
+        "P2": F(-62931,200), "Q2": F(-62931,200),
+        "R2": F(-64731,100), "S2": F(18), "T2": F(66531,200),
+        "U2": F(0), "V2": F(0)}
+for k, v in want.items():
+    assert c[k] == v, f"{k}: {c[k]} != {v}"
+print(f"  live row reproduces: net {float(c['O2'])}, settle {float(c['T2'])} ✓")
+print(f"  W2 renders: {E.instruction(c['T2'])!r} ✓")
 
-# 4) headline numbers present
-for n in ["629.31","829.31","314.655","332.655","−466.655","330","15","33.17","25.17","104","200.00"]:
+# the failure-mode numbers quoted on the page
+base = c
+cases = {
+    "−125.000": E.build(2,4,19,1193,30, overrides={"N2": base["N2"]+125})["V2"],
+    "−67.000":  E.build(2,4,19,1193,30, overrides={"F2": F(99)})["U2"],
+    "+104.885": E.build(2,4,19,1193,30, overrides={"Q2": base["O2"]/3})["V2"],
+}
+for shown, got in cases.items():
+    num = float(shown.replace("−","-").replace("+",""))
+    assert float(got) == num, f"page says {shown} but engine gives {float(got)}"
+print("  quoted check-fires match the engine ✓")
+
+for lbl, ov, cost in [("Olivia 4 leads missing", {"C2":F(0)}, 16.0),
+                      ("spend 1139", {"E2":F(1139)}, 18.09),
+                      ("3 leads miscredited", {"D2":F(22),"C2":F(1)}, 24.0),
+                      ("cost on wrong partner", {"J2":F(0),"K2":F(30)}, 30.0)]:
+    d = E.build(2,4,19,1193,30, overrides=ov)
+    assert d["U2"]==0 and d["V2"]==0, f"{lbl} should be silent"
+    assert abs(abs(float(d["T2"]-base["T2"]))-cost) < 0.005, f"{lbl}: {float(d['T2']-base['T2'])} vs {cost}"
+print("  quoted silent-error costs match the engine ✓")
+
+# the Spent/TFN trap numbers
+t = E.build(2,4,19,1193-100,30+100)
+assert float(t["N2"]-base["N2"])==33.0 and float(t["P2"]-base["P2"])==-16.5
+assert abs(float(t["T2"]-base["T2"])+83.5) < 1e-9 and t["U2"]==0 and t["V2"]==0
+print("  Spent/TFN trap: +33 cost, −16.50 share, −83.50 payment, checks silent ✓")
+
+for n in ["629.31","314.655","332.655","33.17","104","16.00","18.09","24.00","30.00","83.50"]:
     assert n in page, f"MISSING: {n}"
-print("  all headline numbers present ✓")
-print("\nPAGE VERIFIED")
+print("  all quoted numbers present ✓\nPAGE VERIFIED")

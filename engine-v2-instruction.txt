@@ -1,0 +1,1 @@
+=IF(ROUND(T2,2)>0,"Berry pays Tyson "&TEXT(ROUND(T2,2),"$#,##0.00"),IF(ROUND(T2,2)<0,"Tyson pays Berry "&TEXT(-ROUND(T2,2),"$#,##0.00"),"no payment"))

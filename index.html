@@ -111,6 +111,18 @@
   </div>
 </div>
 
+
+<div class="stop">
+  <strong>⚠ Correction to my last version — read this first</strong>
+  I told you the two check cells would catch a cost that nobody was recorded as paying. <strong>That was
+  wrong.</strong> As written, those cells were algebraic tautologies: every term cancels, so they read 0
+  for <em>any</em> data you could possibly type. A fourth audit caught it and I confirmed it symbolically
+  — 50,000 random rows, including negatives and fractions, never moved them off zero.
+  <strong>The money figures below are unaffected and unchanged</strong> — the arithmetic was always
+  right. What was wrong was my claim about how much the sheet protects you. The engine below is rebuilt,
+  and this time each check is tested against the specific failures it is supposed to catch.
+</div>
+
 <h2>The whole system in one line</h2>
 
 <div class="rule">
@@ -167,85 +179,119 @@ on both sides.</p>
 <h2>The engine — paste once, use forever</h2>
 
 <p>Columns <strong>A to J stay exactly as they are</strong>. This replaces the broken
-<em>Total Rev / Tyson / Berry</em> columns and extends the row to U. Click cell <strong>K1</strong> and
-paste:</p>
+<em>Total Rev / Tyson / Berry</em> columns. Click cell <strong>K1</strong> and paste:</p>
 
 <div class="copybox">
-  <div class="copybar"><span>paste at K1 — fills K1:U2, 11 columns</span><button class="copybtn">Copy</button></div>
-  <div class="copyscroll"><pre>Total Rev	Total Cost	Net P/L	Share Tyson	Share Berry	Cash Tyson	Cash Berry	Settle Tyson	Settle Berry	Check attribution	Check balances
-=F2+G2+H2	=I2+J2	=K2-L2	=M2/2	=M2/2	=H2-I2	=F2+G2-J2	=N2-P2	=O2-Q2	=ROUND(P2+Q2-M2,6)	=ROUND(R2+S2,6)</pre></div>
+  <div class="copybar"><span>paste at K1 — fills K1:V2, 12 columns</span><button class="copybtn">Copy</button></div>
+  <div class="copyscroll"><pre>Other cost (Tyson)	Other cost (Berry)	Total Rev	Total Cost	Net P/L	Share Tyson	Share Berry	Tyson in-out	Berry in-out	Settlement	Check rev path	Check balance
+0	0	=F2+G2+H2	=I2+J2+K2+L2	=M2-N2	=O2/2	=O2/2	=H2-I2-K2	=F2+G2-J2-L2	=P2-R2	=ROUND((B2+C2+D2)*8-M2,6)	=ROUND((P2+Q2)-(R2+S2),6)</pre></div>
 </div>
 
-<p>Then <strong>delete cell I4</strong> (the loose <code>330</code>), and for each new day select
-<strong>K2:U2</strong> and drag down.</p>
+<p>Then put this in <strong>W2</strong> — it is the cell you actually read:</p>
+
+<div class="copybox">
+  <div class="copybar"><span>paste at W2 — says who pays whom, in words</span><button class="copybtn">Copy</button></div>
+  <div class="copyscroll"><pre>=IF(ROUND(T2,2)&gt;0,"Berry pays Tyson "&amp;TEXT(ROUND(T2,2),"$#,##0.00"),IF(ROUND(T2,2)&lt;0,"Tyson pays Berry "&amp;TEXT(-ROUND(T2,2),"$#,##0.00"),"no payment"))</pre></div>
+</div>
+
+<p>Delete cell <strong>I4</strong> (the loose <code>330</code>). For each new day select
+<strong>K2:W2</strong> and drag down.</p>
 
 <div class="tw"><table>
-  <thead><tr><th>Cell</th><th>Name</th><th>Formula</th><th class="n">Today</th><th>What it means</th></tr></thead>
+  <thead><tr><th>Cell</th><th>Name</th><th>Formula</th><th class="n">Today</th></tr></thead>
   <tbody>
-    <tr><td><code>K2</code></td><td>Total Rev</td><td><code>=F2+G2+H2</code></td><td class="n">200</td><td>everything you billed</td></tr>
-    <tr><td><code>L2</code></td><td>Total Cost</td><td><code>=I2+J2</code></td><td class="n">829.31</td><td>everything it cost</td></tr>
-    <tr><td><code>M2</code></td><td>Net P/L</td><td><code>=K2-L2</code></td><td class="n neg">−629.31</td><td>the day's real result</td></tr>
-    <tr><td><code>N2</code></td><td>Share Tyson</td><td><code>=M2/2</code></td><td class="n neg">−314.655</td><td>what he owns of it</td></tr>
-    <tr><td><code>O2</code></td><td>Share Berry</td><td><code>=M2/2</code></td><td class="n neg">−314.655</td><td>what he owns of it</td></tr>
-    <tr><td><code>P2</code></td><td>Cash Tyson</td><td><code>=H2-I2</code></td><td class="n neg">−647.31</td><td>collected − paid</td></tr>
-    <tr><td><code>Q2</code></td><td>Cash Berry</td><td><code>=F2+G2-J2</code></td><td class="n pos">18</td><td>collected − paid</td></tr>
-    <tr><td><code>R2</code></td><td>Settle Tyson</td><td><code>=N2-P2</code></td><td class="n pos">+332.655</td><td><strong>+ = receives</strong></td></tr>
-    <tr><td><code>S2</code></td><td>Settle Berry</td><td><code>=O2-Q2</code></td><td class="n neg">−332.655</td><td><strong>− = pays</strong></td></tr>
-    <tr><td><code>T2</code></td><td>Check attribution</td><td><code>=ROUND(P2+Q2-M2,6)</code></td><td class="n">0</td><td>every dollar has an owner</td></tr>
-    <tr><td><code>U2</code></td><td>Check balances</td><td><code>=ROUND(R2+S2,6)</code></td><td class="n">0</td><td>the transfer nets out</td></tr>
+    <tr><td><code>K2</code></td><td>Other cost (Tyson)</td><td>type a number</td><td class="n">0</td></tr>
+    <tr><td><code>L2</code></td><td>Other cost (Berry)</td><td>type a number</td><td class="n">0</td></tr>
+    <tr><td><code>M2</code></td><td>Total Rev</td><td><code>=F2+G2+H2</code></td><td class="n">200</td></tr>
+    <tr><td><code>N2</code></td><td>Total Cost</td><td><code>=I2+J2+K2+L2</code></td><td class="n">829.31</td></tr>
+    <tr><td><code>O2</code></td><td>Net P/L</td><td><code>=M2-N2</code></td><td class="n neg">−629.31</td></tr>
+    <tr><td><code>P2</code></td><td>Share Tyson</td><td><code>=O2/2</code></td><td class="n neg">−314.655</td></tr>
+    <tr><td><code>Q2</code></td><td>Share Berry</td><td><code>=O2/2</code></td><td class="n neg">−314.655</td></tr>
+    <tr><td><code>R2</code></td><td>Tyson in − out</td><td><code>=H2-I2-K2</code></td><td class="n neg">−647.31</td></tr>
+    <tr><td><code>S2</code></td><td>Berry in − out</td><td><code>=F2+G2-J2-L2</code></td><td class="n pos">18</td></tr>
+    <tr><td><code>T2</code></td><td>Settlement</td><td><code>=P2-R2</code></td><td class="n pos">+332.655</td></tr>
+    <tr><td><code>U2</code></td><td>Check rev path</td><td><code>=ROUND((B2+C2+D2)*8-M2,6)</code></td><td class="n">0</td></tr>
+    <tr><td><code>V2</code></td><td>Check balance</td><td><code>=ROUND((P2+Q2)-(R2+S2),6)</code></td><td class="n">0</td></tr>
+    <tr><td><code>W2</code></td><td><strong>Who pays whom</strong></td><td>the IF above</td><td class="n"><strong>Berry pays Tyson</strong></td></tr>
   </tbody>
 </table></div>
-
-<h2>What the two check cells do</h2>
-
-<p>These are the reason this can be a permanent basis. <strong>If either one is not 0, stop and look —
-something is genuinely wrong.</strong> And the number it shows is the size of the mistake.</p>
-
-<div class="tw"><table>
-  <thead><tr><th>Mistake</th><th>Check reads</th><th>Caught?</th></tr></thead>
-  <tbody>
-    <tr><td>A cost is in Total Cost but nobody is recorded as paying it</td><td class="n">−(that amount)</td><td class="ok">✓ yes</td></tr>
-    <tr><td>A cost is counted against both partners</td><td class="n">+(that amount)</td><td class="ok">✓ yes</td></tr>
-    <tr><td>The "+ what you paid" term is dropped (today's bug)</td><td class="n">−829.31</td><td class="ok">✓ yes</td></tr>
-    <tr><td>Revenue recorded but not assigned to a collector</td><td class="n">≠ 0</td><td class="ok">✓ yes</td></tr>
-    <tr><td>The split is silently 60/40 instead of 50/50</td><td class="n">0</td><td class="bad">✗ no</td></tr>
-    <tr><td>A lead count or the spend is simply typed wrong</td><td class="n">0</td><td class="bad">✗ no</td></tr>
-    <tr><td>The transfer is sent the wrong way round</td><td class="n">0</td><td class="bad">✗ no</td></tr>
-  </tbody>
-</table></div>
-
-<p>So: the checks are a <strong>complete</strong> test that every dollar is attributed to exactly one
-partner. They are <strong>not</strong> a test of the split ratio, of your typing, or of which direction
-you actually send the money. For those, read the two <em>Share</em> columns and obey the sign on
-<em>Settle</em>.</p>
 
 <div class="note">
-  <strong>Why <code>ROUND(…,6)</code> and not a bare sum</strong>
-  Sheets stores <code>1193 × 0.67</code> as <code>799.3100000000001</code>. Left raw, these check cells
-  would show things like <code>3.6e-12</code> on <strong>roughly half of all rows</strong> and look
-  broken. (Today's row cancels to a clean zero by luck, not design.) The worst residue measured across
-  100,000 random rows was <code>7.3e-12</code> — a real error is <strong>a billion times bigger</strong>,
-  so rounding to 6 decimals hides the noise and nothing else.
+  <strong>Three deliberate changes from my last version</strong>
+  <strong style="font-weight:600;display:block;margin:10px 0 4px">1. Each partner now has his own free cost cell.</strong>
+  <code>K2</code> for Tyson, <code>L2</code> for Berry. When more costs arrive you just
+  <em>type the number</em> — no formula editing, so there is nothing to get wrong. My last version made
+  you hand-edit two formulas and would have mis-stated the split if you edited only one.
+  <strong style="font-weight:600;display:block;margin:10px 0 4px">2. One settlement figure, not a mirrored pair.</strong>
+  The old <em>Settle Tyson</em> / <em>Settle Berry</em> were always exact opposites — no extra
+  information, double the chance of misreading a sign. This sheet has already shipped one
+  sign-inverted cell.
+  <strong style="font-weight:600;display:block;margin:10px 0 4px">3. A sentence instead of a sign.</strong>
+  <code>W2</code> reads <em>"Berry pays Tyson $332.66"</em> or <em>"Tyson pays Berry …"</em> in plain
+  words. Nobody has to remember what a minus means at the moment they send money.
 </div>
 
-<h2>When Berry's other costs arrive</h2>
+<h2>What the checks catch — and what they never will</h2>
 
-<p>You said the $30 TFN is all of Berry's cost for now and the rest comes later. When it does, put it in
-a new column — say <code>V2</code> — and change <strong>exactly two cells</strong>:</p>
+<p>This is the part I got wrong last time, so here it is measured rather than asserted. Every case below
+was simulated against the real formulas.</p>
 
-<div class="copybox">
-  <div class="copybar"><span>L2 — add the new cost to the pool</span><button class="copybtn">Copy</button></div>
-  <div class="copyscroll"><pre>=I2+J2+V2</pre></div>
+<h3>They fire on damage to the sheet</h3>
+<div class="tw"><table>
+  <thead><tr><th>What happened</th><th class="n">Check reads</th></tr></thead>
+  <tbody>
+    <tr><td>A cost added to Total Cost but not to anyone's column</td><td class="n bad">−125.000</td></tr>
+    <tr><td>Someone types a number over a Rev cell</td><td class="n bad">−67.000</td></tr>
+    <tr><td>A share formula edited from <code>/2</code> to <code>/3</code></td><td class="n bad">+104.885</td></tr>
+  </tbody>
+</table></div>
+
+<h3>They are blind to a typo — completely</h3>
+<div class="tw"><table>
+  <thead><tr><th>What happened</th><th class="n">Check reads</th><th class="n">But the payment is wrong by</th></tr></thead>
+  <tbody>
+    <tr><td>Olivia's 4 leads never entered</td><td class="n ok">0</td><td class="n bad">$16.00</td></tr>
+    <tr><td>Spend typed 1,139 instead of 1,193</td><td class="n ok">0</td><td class="n bad">$18.09</td></tr>
+    <tr><td>3 leads credited to Tyson that Berry actually sold</td><td class="n ok">0</td><td class="n bad">$24.00</td></tr>
+    <tr><td>A cost Tyson paid, typed into Berry's column</td><td class="n ok">0</td><td class="n bad">$30.00</td></tr>
+    <tr><td>The whole block pasted as static values</td><td class="n ok">0</td><td class="n bad">$332.66</td></tr>
+  </tbody>
+</table></div>
+
+<p><strong>So read the checks correctly:</strong> 0 means <em>"the formulas are intact"</em>. It does
+<strong>not</strong> mean <em>"the numbers are right"</em>. No formula inside a sheet can validate what
+you typed into it — only a comparison against something outside the sheet can.</p>
+
+<div class="note">
+  <strong>The one control that would actually catch bad data</strong>
+  Add two columns you fill in from outside: <strong>money actually banked</strong> (from the bank or
+  the client statement) and <strong>the ad invoice</strong>. Then
+  <code>=ROUND(banked-M2,6)</code> and <code>=ROUND(invoice-I2,6)</code>. Those two compare the sheet
+  against reality instead of against itself, and they are the only cells here that could ever catch a
+  mistyped lead count or spend. Worth it once this is carrying real money every day.
 </div>
-<div class="copybox">
-  <div class="copybar"><span>Q2 — record that Berry paid it</span><button class="copybtn">Copy</button></div>
-  <div class="copyscroll"><pre>=F2+G2-J2-V2</pre></div>
+
+<div class="warn">
+  <strong>Two traps to know about</strong>
+  <strong style="font-weight:600;display:block;margin:10px 0 4px">1. Never move money between <code>Spent</code> and <code>TFN Cost</code>.</strong>
+  If Berry reimburses Tyson $100 of ad spend and someone records it as <code>E2−100</code> and
+  <code>J2+100</code>, the total cost <em>rises $33</em> — because the <code>0.67</code> applies to
+  <code>E2</code> and not to <code>J2</code>. Each partner's share moves $16.50, the payment moves
+  $83.50, and <strong>both checks still read 0</strong>. Money moving between partners is not a cost —
+  it does not belong in either column.
+  <strong style="font-weight:600;display:block;margin:10px 0 4px">2. Never <code>SUM</code> the check column on a totals row.</strong>
+  A +$50 error on one row and a −$50 error on another sum to a clean zero. Use
+  <code>=COUNTIF(U2:U1000,"&lt;&gt;0")</code> instead — it must read 0.
 </div>
 
-<p><strong>Both, always.</strong> A cost must enter the pool <em>and</em> be attributed to whoever paid
-it. If you update <code>L2</code> and forget <code>Q2</code>, check cell <code>T2</code> immediately
-shows the exact amount you forgot. Same pattern for a new Tyson cost: add it to <code>L2</code> and
-subtract it in <code>P2</code>.</p>
+<div class="note">
+  <strong>How much any error costs you — one rule</strong>
+  <strong>An error in the shared pool</strong> (a wrong lead count, a wrong spend) is split between you,
+  so it moves the payment by <strong>half</strong> the mistake. <strong>An error in who held the
+  money</strong> (a cost logged against the wrong partner, revenue credited to the wrong one) moves the
+  payment by the <strong>full</strong> amount. That is why the columns saying <em>who paid</em> and
+  <em>who collected</em> matter twice as much as the totals.
+</div>
 
 <h2>What is proved, and how</h2>
 
@@ -258,7 +304,7 @@ three and five partners:</p>
   <tbody>
     <tr><td>1</td><td>The settlements always sum to exactly 0</td><td>Money is never created or lost in the split</td></tr>
     <tr><td>2</td><td>After settling, each partner sits exactly on his share</td><td>The transfer does what it's meant to do</td></tr>
-    <tr><td>3</td><td>The cash positions always sum to the net</td><td>Every dollar belongs to exactly one partner</td></tr>
+    <tr><td>3</td><td>The two positions always sum to the net</td><td>The books close — what you each hold accounts for the whole result</td></tr>
     <tr><td>4</td><td>That settlement is the <em>only</em> one that works</td><td>There is no rival "fairer" number to argue about</td></tr>
     <tr><td>5</td><td><strong>Additivity</strong> — daily settlements sum to the monthly one</td><td>Settle per day, per week or per month; identical answer</td></tr>
     <tr><td>6</td><td><strong>Invariance</strong> — moving a cost between partners changes neither the net nor either share</td><td>Tagging the wrong payer cannot corrupt your profit figure — only the transfer</td></tr>
@@ -269,6 +315,19 @@ three and five partners:</p>
 <strong>3,000 more random rows</strong> — different lead counts, spends, rates and TFN values — and
 matched exactly every time, on profitable days as well as losing ones. That is the step that catches a
 formula which is accidentally right at today's numbers and wrong everywhere else.</p>
+
+<div class="warn">
+  <strong>Two honest limits on that list</strong>
+  <strong>#3 is weaker than it sounds.</strong> It says your two positions <em>net</em> to the result —
+  it does <strong>not</strong> prove each dollar was tagged to the right person. A cost counted against
+  both of you and a cost counted against neither cancel each other exactly. That is why the section
+  above exists.
+  <br><br>
+  <strong>#5 needs the split to stay the same.</strong> Additivity holds while both rows use 50/50. If
+  one day were ever split differently, day-by-day settlements and a settle-once-at-month-end would no
+  longer agree, and there would be no single right answer. Keep the ratio constant, or settle each
+  period separately.
+</div>
 
 <h2>What is still wrong in the sheet right now</h2>
 
@@ -310,12 +369,14 @@ neither the loss share (314.655) nor the transfer (332.655) — it counts the $3
 </div>
 
 <footer>
-  Verdict issued 8 August 2026 against the live sheet. All figures computed with exact fractions, never
-  floating point. Six properties proved for all inputs and property-tested on 4,000 randomised cases;
-  the sheet formulas separately verified against the model on 3,000 more. Three independent auditors —
-  one briefed to refute rather than confirm — re-derived the result. All agreed. A fourth audit, of
-  this engine as a permanent design, was still running when this page went up.
-  <strong>Loss $629.31 · $314.655 each · Berry pays Tyson $332.655.</strong>
+  Verdict issued 8 August 2026 against the live sheet, revised the same day after a fourth audit.
+  All figures computed with exact fractions, never floating point. Six properties proved for all inputs
+  and property-tested on 4,000 randomised cases; the sheet formulas separately verified against the
+  model on 3,000 more; the rebuilt engine tested on 2,000 more plus every specific failure mode listed
+  above. Four independent auditors — two briefed to refute rather than confirm — worked over the result
+  and the design. The money figures never moved across any of it:
+  <strong>loss $629.31 · $314.655 each · Berry pays Tyson $332.655</strong>. The fourth audit changed
+  the sheet's controls, not its arithmetic.
 </footer>
 
 </div>
