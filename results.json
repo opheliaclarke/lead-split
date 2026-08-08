@@ -1,0 +1,21 @@
+{
+  "rev": {
+    "Dino": "16",
+    "Olivia": "32",
+    "Tyson": "152"
+  },
+  "actual_cost": "799.31",
+  "tyson_in": "152",
+  "berry_in": "48",
+  "tyson_out": "799.31",
+  "berry_out": "30",
+  "total_rev": "200",
+  "total_cost": "829.31",
+  "net": "-629.31",
+  "tyson_share": "-314.655",
+  "berry_share": "-314.655",
+  "tyson_cash": "-647.31",
+  "berry_cash": "18",
+  "tyson_settle": "332.655",
+  "berry_settle": "-332.655"
+}
