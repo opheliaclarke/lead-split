@@ -1,5 +1,54 @@
 # lead-split — Tyson & Berry lead-sale settlement
 
+## ⭐ 11 AUGUST — CURRENT ANSWER: **BERRY STILL OWES TYSON $502.93**
+
+Bob asked how much moves after Berry's **$500 advance on day 1** (and nothing since, either way).
+
+**Sheet now has THREE rows: 7 Aug, 10 Aug, 11 Aug.** ⚠ **The 8 August row was DELETED** (it existed on
+08-08: 65 leads, spent 565, net +111.45, Berry owed 130.275) — flagged to Bob on the page; if restored
+the answer becomes **$633.205**. Sheet formulas `K/L/M/N/O` all verified correct on all three rows
+(shared formulas `L2:L4` etc. — they inherit).
+
+⭐ **Lead price CHANGED $8 → $9 from 10 August**, hard-coded in **four formulas per row** (F,G,H,K).
+Recommended a Price column; the v2 engine's `Check rev path` also hard-codes `*8` and would read a
+false error on every $9 row.
+
+| | 7 Aug | 10 Aug | 11 Aug | **3-day** |
+|---|---|---|---|---|
+| Leads / price | 25 @ $8 | 240 @ $9 | 33 @ $9 | 298 |
+| Revenue | 200.00 | 2,160.00 | 297.00 | **2,657.00** |
+| Cost | 829.31 | 1,818.25 | 559.30 | **3,206.86** |
+| Net | −629.31 | **+341.75** | −262.30 | **−549.86** |
+| Each bears | −314.655 | +170.875 | −131.15 | **−274.93** |
+| Berry → Tyson | 332.655 | 497.125 | 173.15 | **1,002.93** |
+
+**1,002.93 − 500 already paid = $502.93.** Positions after: Tyson 1,709 − 2,986.86 + 500 = **−777.86**;
+Berry 948 − 220 − 500 = **+228**; both land on −274.93. Additivity re-confirmed on real data.
+
+⭐ **Bob's "$314" was the SHARE OF LOSS, not the obligation.** Day 1 Berry also held +$18 (collected 48,
+paid 30), so he owed **332.655**; the $500 **overpaid by $167.345** — after day 1 Tyson owed *Berry*.
+
+⭐ **Shipped: column `R` makes the sheet subtract transfers itself** —
+`R2 =SUM($L$2:L2)-SUM($P$2:P2)+SUM($Q$2:Q2)` → −167.345 / 329.78 / **502.93**. ⚠ **`P` (Berry To
+Tyson) and `Q` (Tyson To Berry) existed but NO formula read them** — the sheet still thought Berry
+owed the full 1,002.93.
+🛑 **The v2 engine must NOT be pasted any more** — it starts at `K1` and runs to `V`, so it would
+**overwrite `P` and destroy the record of the $500**, silently. Warning added to the page.
+⚠ A partner-to-partner transfer is **never** a cost: typing the $500 into `Spent`/`TFN` would invent
+$500 of expense, cut reported profit $500 and move each share $250, with no check firing.
+
+⭐ **Business (3 days): only the 240-lead day made money.** Cost/lead 33.17 → **7.58** → 16.95 vs price
+8/9/9; margin on the good day is only **+$1.42/lead**; 3-day average **−$1.85/lead**. 11 Aug needed 63
+leads to break even, got 33. ⚠ The `0.67` has now written off **$1,471.14** of $4,458 spend —
+**asked four times, still unanswered.**
+
+Verified: `settle_0811.py` (exact `Fraction`, re-derived from raw lead counts not the sheet's totals,
+zero-sum + lands-on-share + additivity + partition asserts, R-column and 8-Aug-restore scenarios),
+independent refuting sub-agent, QA PASS (0 contrast failures, 0 console errors, no overflow, 4/4 copy
+buttons).
+
+---
+
 **Status:** DELIVERED 2026-08-08 → deep re-verified → **turned into a formal, proved ENGINE** on Bob's
 third pass (*"this will be the BASIS of this sheet… use all the mathematical knowledge you have"*).
 Verdict **unchanged through all three passes**. Page LIVE. **Bob's sheet still NOT edited by me — no

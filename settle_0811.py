@@ -126,3 +126,16 @@ spent = F(1193 + 2475 + 790)
 assert spent * HAIRCUT == tyson_paid
 print("0.67 writes off       :", m(spent - tyson_paid), "of", m(spent), "spend")
 print("SECOND BLOCK PASSED")
+
+# ---- exposure if the 0.67 is a PENDING rebate, not cash already saved ----
+gross_spent = F(4458)
+gross_cost  = gross_spent + berry_paid          # TFN unaffected by the haircut
+gross_net   = tot_rev - gross_cost
+gross_share = gross_net / 2
+gross_tyson = gross_share - (tyson_collected - gross_spent)
+gross_after = gross_tyson - net_transfer
+assert gross_share == F("-1010.5"), gross_share
+assert gross_after == F("1238.5"), gross_after
+print("if 0.67 is a PENDING rebate: Berry -> Tyson", m(gross_after),
+      " swing", m(gross_after - s_tyson_a))
+print("THIRD BLOCK PASSED")
