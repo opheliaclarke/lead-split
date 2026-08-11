@@ -91,88 +91,97 @@
 
 <header>
   <h1>Verdict — Tyson &amp; Berry lead split</h1>
-  <p class="sub">Row <strong>7 August 2026</strong> · 25 leads @ $8 · 50/50 · built to be the permanent basis of the sheet</p>
+  <p class="sub">Three days — <strong>7, 10 and 11 August 2026</strong> · 50/50 · including the $500 Berry already sent</p>
 </header>
 
 <div class="verdict">
-  <div class="lbl">Verdict · two days in</div>
-  <div class="big">Your sheet is correct now. Berry owes Tyson $462.93.</div>
-  <p><b>7 August</b> lost $629.31. <b>8 August</b> made a profit of $111.45. Together you are
-     <b>$517.86 down</b>, which is <b>−$258.93 of profit each</b>.</p>
-  <p>I re-pulled the file and checked every formula: the row-2 fix you applied is right, and row 3
-     inherits it correctly, so <b>both rows are computing properly</b>.</p>
+  <div class="lbl">Verdict · three days, after the advance</div>
+  <div class="big">Berry still owes Tyson $502.93.</div>
+  <p>Across the three days you are <b>$549.86 down</b>, so each of you carries <b>−$274.93</b>.
+     Settling the whole period puts <b>$1,002.93</b> from Berry to Tyson — and <b>$500 of that is
+     already paid</b>, so what is left to send is <b>$502.93</b>.</p>
+  <p>The $500 was not a cost and not revenue — it was your money moving between your own two pockets,
+     so it changes nothing in the profit and comes straight off the balance.</p>
   <div class="vgrid">
-    <div class="vcell"><div class="k">7 Aug net</div><div class="v red">−$629.31</div></div>
-    <div class="vcell"><div class="k">8 Aug net</div><div class="v grn">+$111.45</div></div>
-    <div class="vcell"><div class="k">Two-day net</div><div class="v red">−$517.86</div></div>
-    <div class="vcell"><div class="k">Profit each, 8 Aug</div><div class="v grn">+$55.725</div></div>
-    <div class="vcell"><div class="k">Profit each, total</div><div class="v red">−$258.93</div></div>
-    <div class="vcell"><div class="k">Berry → Tyson, total</div><div class="v grn">$462.93</div></div>
+    <div class="vcell"><div class="k">Revenue, 3 days</div><div class="v">$2,657.00</div></div>
+    <div class="vcell"><div class="k">Cost, 3 days</div><div class="v">$3,206.86</div></div>
+    <div class="vcell"><div class="k">Net</div><div class="v red">−$549.86</div></div>
+    <div class="vcell"><div class="k">Each partner bears</div><div class="v red">−$274.93</div></div>
+    <div class="vcell"><div class="k">Owed before the $500</div><div class="v">$1,002.93</div></div>
+    <div class="vcell"><div class="k">Berry → Tyson, now</div><div class="v grn">$502.93</div></div>
   </div>
 </div>
 
 <div class="stop">
-  <strong>⚠ Correction to my last version — read this first</strong>
-  I told you the two check cells would catch a cost that nobody was recorded as paying. <strong>That was
-  wrong.</strong> As written, those cells were algebraic tautologies: every term cancels, so they read 0
-  for <em>any</em> data you could possibly type. A fourth audit caught it and I confirmed it symbolically
-  — 50,000 random rows, including negatives and fractions, never moved them off zero.
-  <strong>The money figures below are unaffected and unchanged</strong> — the arithmetic was always
-  right. What was wrong was my claim about how much the sheet protects you. The engine below is rebuilt,
-  and this time each check is tested against the specific failures it is supposed to catch.
+  <strong>⚠ Your 8 August row is gone from the sheet</strong>
+  On 8 August the file had a row for that day — <strong>65 leads, $565 spent, $520 revenue, a
+  $111.45 profit</strong>, on which <strong>Berry owed Tyson $130.275</strong>. It is not in the file
+  any more; the three rows now are 7, 10 and 11 August. <strong>Every number on this page is the sheet
+  as it stands today.</strong> If that day was real business and was deleted by accident, put it back
+  and the answer becomes <strong>Berry pays Tyson $633.205</strong> instead of $502.93. If it was test
+  data you cleared out, ignore this. I can't tell which from the file — only you can.
 </div>
 
-
-<h2>8 August — it landed, and it's a profit</h2>
-
-<p>Row 3 is in the sheet now, and it answers the question I had about the 378: you entered
-<strong>Spent 565</strong>, and the sheet turned that into <strong>Actual Cost 378.55</strong>. So 378
-was the actual cost — the first of my two readings. Good day:</p>
+<h2>The three days, and where the $500 lands</h2>
 
 <div class="tw"><table>
-  <thead><tr><th>Line</th><th>Who</th><th class="n">Amount</th></tr></thead>
+  <thead><tr><th>Day</th><th class="n">Leads</th><th class="n">Price</th><th class="n">Revenue</th><th class="n">Cost</th><th class="n">Net</th><th class="n">Each</th><th class="n">Berry → Tyson</th></tr></thead>
   <tbody>
-    <tr><td>Rev — Tyson (38 × $8)</td><td>to Tyson</td><td class="n">304.00</td></tr>
-    <tr><td>Rev — Olivia (15 × $8)</td><td>to Berry</td><td class="n">120.00</td></tr>
-    <tr><td>Rev — Dino (12 × $8)</td><td>to Berry</td><td class="n">96.00</td></tr>
-    <tr class="total"><td>Total revenue</td><td></td><td class="n">520.00</td></tr>
-    <tr><td>Actual Cost (565 × 0.67)</td><td>paid by Tyson</td><td class="n">378.55</td></tr>
-    <tr><td>TFN Cost</td><td>paid by Berry</td><td class="n">30.00</td></tr>
-    <tr class="total"><td>Total cost</td><td></td><td class="n">408.55</td></tr>
-    <tr class="total"><td>Net — a PROFIT</td><td></td><td class="n pos">+111.45</td></tr>
+    <tr><td>7 August</td><td class="n">25</td><td class="n">$8</td><td class="n">200.00</td><td class="n">829.31</td><td class="n neg">−629.31</td><td class="n neg">−314.655</td><td class="n">332.655</td></tr>
+    <tr><td>10 August</td><td class="n">240</td><td class="n">$9</td><td class="n">2,160.00</td><td class="n">1,818.25</td><td class="n pos">+341.75</td><td class="n pos">+170.875</td><td class="n">497.125</td></tr>
+    <tr><td>11 August</td><td class="n">33</td><td class="n">$9</td><td class="n">297.00</td><td class="n">559.30</td><td class="n neg">−262.30</td><td class="n neg">−131.15</td><td class="n">173.15</td></tr>
+    <tr class="total"><td>Three days</td><td class="n">298</td><td class="n"></td><td class="n">2,657.00</td><td class="n">3,206.86</td><td class="n neg">−549.86</td><td class="n neg">−274.93</td><td class="n">1,002.93</td></tr>
   </tbody>
 </table></div>
 
+<p>Those three daily figures add to <strong>$1,002.93</strong> — and working the whole period out in one
+go, from the three-day totals, gives the identical number. You can settle daily or settle once; it
+cannot disagree.</p>
+
+<div class="rule">
+  <div class="k">The answer</div>
+  <div class="f">$1,002.93 owed &nbsp;−&nbsp; $500 already sent &nbsp;=&nbsp; <strong>Berry pays Tyson $502.93</strong></div>
+  <div class="n">Nothing else has moved between you on the 10th or the 11th, so nothing else comes off.</div>
+</div>
+
+<h2>Where each of you actually stands</h2>
+
+<p>Add up the cash each of you has handled over the three days — what came in from your own buyers,
+what went out of your own account — then count the $500 that has already crossed between you:</p>
+
 <div class="pair">
   <div class="person">
-    <h3>Tyson — 8 August</h3>
-    <div class="row"><span>Collected (38 leads)</span><b class="pos">+304.00</b></div>
-    <div class="row"><span>Paid campaign cost</span><b class="neg">−378.55</b></div>
-    <div class="row"><span>So he is holding</span><b class="neg">−74.55</b></div>
-    <div class="row"><span><strong>PROFIT</strong></span><b class="pos">+55.725</b></div>
-    <div class="settle get">Receives <b>+$130.275</b></div>
+    <h3>Tyson</h3>
+    <div class="row"><span>Collected from his buyers</span><b class="pos">+1,709.00</b></div>
+    <div class="row"><span>Paid campaign cost</span><b class="neg">−2,986.86</b></div>
+    <div class="row"><span>Received the advance</span><b class="pos">+500.00</b></div>
+    <div class="row"><span>So he is holding</span><b class="neg">−777.86</b></div>
+    <div class="row"><span>But he only carries</span><b class="neg">−274.93</b></div>
+    <div class="settle get">Receives <b>+$502.93</b></div>
   </div>
   <div class="person">
-    <h3>Berry — 8 August</h3>
-    <div class="row"><span>Collected (Dino + Olivia, 27 leads)</span><b class="pos">+216.00</b></div>
-    <div class="row"><span>Paid TFN cost</span><b class="neg">−30.00</b></div>
-    <div class="row"><span>So he is holding</span><b class="pos">+186.00</b></div>
-    <div class="row"><span><strong>PROFIT</strong></span><b class="pos">+55.725</b></div>
-    <div class="settle pay">Pays <b>−$130.275</b></div>
+    <h3>Berry</h3>
+    <div class="row"><span>Collected (Dino + Olivia)</span><b class="pos">+948.00</b></div>
+    <div class="row"><span>Paid TFN cost</span><b class="neg">−220.00</b></div>
+    <div class="row"><span>Sent the advance</span><b class="neg">−500.00</b></div>
+    <div class="row"><span>So he is holding</span><b class="pos">+228.00</b></div>
+    <div class="row"><span>But he carries</span><b class="neg">−274.93</b></div>
+    <div class="settle pay">Pays <b>−$502.93</b></div>
   </div>
 </div>
 
-<p><strong>So: you each made $55.725 profit on 8 August, and Berry pays Tyson $130.275.</strong>
-Berry is holding $186 of the day's money but only earned $55.725 of it; Tyson is $74.55 out of pocket
-and earned the same $55.725. Those two match the <code>L3</code> and <code>M3</code> your sheet already
-shows — I checked them against the raw inputs, not against the sheet.</p>
+<p>Tyson is <strong>$777.86</strong> out of pocket and is only responsible for
+<strong>$274.93</strong> of it. Berry is <strong>$228 up</strong> and is responsible for the same
+<strong>$274.93</strong>. Send $502.93 and both of you land on exactly −$274.93 — which is the whole
+point of the exercise.</p>
 
 <div class="note">
-  <strong>Notice what changed between the two days</strong>
-  Same $30 TFN, similar structure — but on the 7th you spent <strong>$1,193</strong> to get 25 leads,
-  and on the 8th <strong>$565</strong> to get <strong>65</strong>. Cost per lead went from
-  <strong>$33.17</strong> to <strong>$6.29</strong>. That single change is what turned a $629 loss into
-  a $111 profit. Whatever you did differently on the 8th is the thing to repeat.
+  <strong>About your "$314" figure</strong>
+  On 7 August, $314.655 was Berry's <strong>share of the loss</strong> — but it was not what he owed
+  Tyson. He had also collected $48 from Dino and Olivia and paid $30 of TFN, leaving him $18 up, and
+  that $18 has to come back too. So his obligation that day was <strong>$332.655</strong>, and the
+  $500 <strong>overpaid it by $167.345</strong>. That overpayment is not lost — it is sitting in the
+  running balance, which is why he now owes $502.93 rather than the full $1,002.93.
 </div>
 
 <h2>Your profit columns — add these two</h2>
@@ -192,25 +201,55 @@ them, so it needs its own column. These two touch nothing that already works —
   <thead><tr><th>Row</th><th class="n">N — Profit Tyson</th><th class="n">O — Profit Berry</th><th class="n">L — Settlement</th></tr></thead>
   <tbody>
     <tr><td>7 August</td><td class="n neg">−314.655</td><td class="n neg">−314.655</td><td class="n pos">+332.655</td></tr>
-    <tr><td>8 August</td><td class="n pos">+55.725</td><td class="n pos">+55.725</td><td class="n pos">+130.275</td></tr>
-    <tr class="total"><td>Running total</td><td class="n neg">−258.93</td><td class="n neg">−258.93</td><td class="n pos">+462.93</td></tr>
+    <tr><td>10 August</td><td class="n pos">+170.875</td><td class="n pos">+170.875</td><td class="n pos">+497.125</td></tr>
+    <tr><td>11 August</td><td class="n neg">−131.15</td><td class="n neg">−131.15</td><td class="n pos">+173.15</td></tr>
+    <tr class="total"><td>Running total</td><td class="n neg">−274.93</td><td class="n neg">−274.93</td><td class="n pos">+1,002.93</td></tr>
   </tbody>
 </table></div>
 
 <p><strong>Both columns are safe to <code>SUM</code> down the page.</strong> The two profits always add
 up to the day's net, and the settlements always add to zero — so a totals row gives you each partner's
-profit to date and the running amount owed, in one place. Right now:
-<strong>Berry owes Tyson $462.93 across the two days.</strong></p>
+profit to date and the running amount owed, in one place. Right now that total says
+<strong>$1,002.93</strong>, which is the figure <em>before</em> the $500 is taken off.</p>
+
+<h2>Make the sheet subtract the $500 by itself</h2>
+
+<p>Your <strong>Berry To Tyson</strong> and <strong>Tyson To Berry</strong> columns
+(<code>P</code> and <code>Q</code>) hold the $500, but <strong>no formula reads them</strong> — nothing
+in the sheet knows the payment happened. One column fixes that. Put this in <strong>R1</strong>:</p>
+
+<div class="copybox">
+  <div class="copybar"><span>paste at R1 — fills R1:R2, then drag down</span><button class="copybtn">Copy</button></div>
+  <div class="copyscroll"><pre>Berry still owes
+=SUM($L$2:L2)-SUM($P$2:P2)+SUM($Q$2:Q2)</pre></div>
+</div>
+
+<p>Every dollar owed, minus every dollar Berry has sent, plus every dollar Tyson has sent back. The
+bottom cell of that column is always the live answer — today it reads <strong>502.93</strong>. If it
+ever goes negative, Tyson owes Berry that amount instead.</p>
+
+<div class="tw"><table>
+  <thead><tr><th>Row</th><th class="n">L — owed that day</th><th class="n">P — Berry sent</th><th class="n">R — still owed</th></tr></thead>
+  <tbody>
+    <tr><td>7 August</td><td class="n">332.655</td><td class="n">500.00</td><td class="n neg">−167.345</td></tr>
+    <tr><td>10 August</td><td class="n">497.125</td><td class="n">—</td><td class="n pos">329.78</td></tr>
+    <tr class="total"><td>11 August</td><td class="n">173.15</td><td class="n">—</td><td class="n pos">502.93</td></tr>
+  </tbody>
+</table></div>
+
+<p>Read the middle line: after the 7th, the $500 had put Berry <strong>$167.345 ahead</strong> —
+Tyson owed <em>him</em>. The 10th and 11th more than reversed it.</p>
 
 <div class="note">
   <strong>Profit and settlement are different things — keep them apart</strong>
-  <strong>Profit</strong> is what each of you earned that day: on 8 August, <strong>+$55.725 each</strong>.
+  <strong>Profit</strong> is what each of you earned that day: on 10 August, <strong>+$170.875 each</strong>.
   <strong>Settlement</strong> is the cash that has to move so the bank accounts match the profit:
-  <strong>$130.275 from Berry to Tyson</strong>. They are never the same number, and only the profit
+  <strong>$497.125 from Berry to Tyson</strong>. They are never the same number, and only the profit
   column belongs in a P&amp;L conversation.
   <br><br>
-  Also worth knowing: <strong>you can settle whenever you like.</strong> Paying $332.655 then $130.275
-  gives exactly the same result as paying $462.93 once at the end of the week — the maths guarantees it.
+  Also worth knowing: <strong>you can settle whenever you like.</strong> Paying each day as it comes
+  gives exactly the same result as paying once at the end of the week — the maths guarantees it. That
+  is why a $500 lump on day one is perfectly fine; it just sits in the running balance.
 </div>
 
 <h2>The whole system in one line</h2>
@@ -221,61 +260,51 @@ profit to date and the running amount owed, in one place. Right now:
   <div class="n">Same rule for both partners. Positive means you receive; negative means you pay.</div>
 </div>
 
-<p>Everything else on this page is that sentence, written out carefully. Applied to today:</p>
+<p>Everything else on this page is that sentence, written out carefully. Applied to the three days
+together:</p>
 
 <div class="tw"><table>
   <thead><tr><th></th><th class="n">Half the net</th><th class="n">− collected</th><th class="n">+ paid</th><th class="n">= Settlement</th></tr></thead>
   <tbody>
-    <tr><td><strong>Tyson</strong></td><td class="n">−314.655</td><td class="n">−152.00</td><td class="n">+799.31</td><td class="n pos">+332.655</td></tr>
-    <tr><td><strong>Berry</strong></td><td class="n">−314.655</td><td class="n">−48.00</td><td class="n">+30.00</td><td class="n neg">−332.655</td></tr>
-    <tr class="total"><td>Must add to zero</td><td class="n">−629.31</td><td class="n">−200.00</td><td class="n">+829.31</td><td class="n">0.00 ✓</td></tr>
+    <tr><td><strong>Tyson</strong></td><td class="n">−274.93</td><td class="n">−1,709.00</td><td class="n">+2,986.86</td><td class="n pos">+1,002.93</td></tr>
+    <tr><td><strong>Berry</strong></td><td class="n">−274.93</td><td class="n">−948.00</td><td class="n">+220.00</td><td class="n neg">−1,002.93</td></tr>
+    <tr class="total"><td>Must add to zero</td><td class="n">−549.86</td><td class="n">−2,657.00</td><td class="n">+3,206.86</td><td class="n">0.00 ✓</td></tr>
   </tbody>
 </table></div>
 
 <p>The bottom row is the whole integrity test. The three components add to the net, to the total
 revenue and to the total cost respectively — and the settlements add to <strong>exactly zero</strong>,
-because one partner pays what the other receives and nothing evaporates.</p>
+because one partner pays what the other receives and nothing evaporates. Then the $500 already sent
+comes off the top line: <strong>1,002.93 − 500 = 502.93</strong>.</p>
 
 <h2>Why the costs sit where they do</h2>
 
 <p>You both generate the leads together and split 50/50. So <strong>every dollar in and every dollar
 out belongs to the partnership</strong>, no matter whose account it passed through. Whose card was
-charged is <em>custody</em>, not ownership.</p>
+charged is <em>custody</em>, not ownership. That is also exactly why the $500 changes no profit figure
+— it never left the partnership, it only changed pocket.</p>
 
-<div class="pair">
-  <div class="person">
-    <h3>Tyson</h3>
-    <div class="row"><span>Collected (19 leads)</span><b class="pos">+152.00</b></div>
-    <div class="row"><span>Paid campaign cost</span><b class="neg">−799.31</b></div>
-    <div class="row"><span>So he is holding</span><b class="neg">−647.31</b></div>
-    <div class="row"><span>But he only owes</span><b class="neg">−314.655</b></div>
-    <div class="settle get">Receives <b>+$332.655</b></div>
-  </div>
-  <div class="person">
-    <h3>Berry</h3>
-    <div class="row"><span>Collected (Dino + Olivia)</span><b class="pos">+48.00</b></div>
-    <div class="row"><span>Paid TFN cost</span><b class="neg">−30.00</b></div>
-    <div class="row"><span>So he is holding</span><b class="pos">+18.00</b></div>
-    <div class="row"><span>But he owes</span><b class="neg">−314.655</b></div>
-    <div class="settle pay">Pays <b>−$332.655</b></div>
-  </div>
+<div class="warn">
+  <strong>Never type a payment between you into <code>Spent</code> or <code>TFN Cost</code></strong>
+  The $500 belongs in the <strong>Berry To Tyson</strong> column and nowhere else. If it were ever
+  logged as a cost, it would invent $500 of expense that never happened, drop the reported profit by
+  $500 and move each partner's share by $250 — and the sheet would never complain. A transfer between
+  partners is not a business cost.
 </div>
-
-<p>Tyson has put <strong>$647.31</strong> of his own money in and is only responsible for
-<strong>$314.655</strong> of it. Berry is <strong>$18 up</strong> and is responsible for the same
-<strong>$314.655</strong>. The gap between those two positions is what moves, and it is the same number
-on both sides.</p>
 
 <h2>The engine — paste once, use forever</h2>
 
 <div class="warn">
-  <strong>This is an alternative to what you have — not an addition</strong>
-  Your sheet works correctly right now with three formulas plus the two profit columns above. This
-  section is the fuller version: it adds a free cost cell for each of you, two check cells, and a
-  plain-English "who pays whom" cell. <strong>It pastes over K onwards, so it would replace your
-  current <code>K</code>/<code>L</code>/<code>M</code> and the <code>N</code>/<code>O</code> profit
-  columns</strong> — it has its own Profit columns built in, so nothing is lost. Take it or leave it;
-  your current setup is not wrong without it.
+  <strong>🛑 Do not paste this over your sheet as it stands — it would eat the $500</strong>
+  Your sheet works correctly right now with three formulas, the two profit columns, and the running
+  balance above. This section is the fuller version — a free cost cell for each of you, two check
+  cells and a plain-English "who pays whom" cell — but <strong>it pastes at <code>K1</code> and runs
+  12 columns to <code>V</code></strong>. Since 8 August you have filled <code>N</code> and
+  <code>O</code> with profit and <strong><code>P</code> with the $500</strong>, so pasting it now
+  would <strong>overwrite the record of that payment</strong> and there is no formula anywhere that
+  could tell you it had gone. If you ever want this version, move the transfer columns out to the
+  right first, or shift the whole block to start after them. Kept here for reference — your current
+  setup is not wrong without it.
 </div>
 
 
@@ -295,8 +324,19 @@ on both sides.</p>
   <div class="copyscroll"><pre>=IF(ROUND(T2,2)&gt;0,"Berry pays Tyson "&amp;TEXT(ROUND(T2,2),"$#,##0.00"),IF(ROUND(T2,2)&lt;0,"Tyson pays Berry "&amp;TEXT(-ROUND(T2,2),"$#,##0.00"),"no payment"))</pre></div>
 </div>
 
-<p>Delete cell <strong>I4</strong> (the loose <code>330</code>). For each new day select
-<strong>K2:W2</strong> and drag down.</p>
+<p>For each new day select <strong>K2:W2</strong> and drag down.</p>
+
+<div class="warn">
+  <strong>⚠ Your lead price is hard-coded, and it has already changed once</strong>
+  On 7 August the sheet multiplies by <strong>8</strong>; on the 10th and 11th by <strong>9</strong>.
+  That number is typed inside <strong>four separate formulas on every row</strong>
+  (<code>F</code>, <code>G</code>, <code>H</code> and <code>K</code>). Change the price again and edit
+  three of the four, and the day's revenue silently disagrees with the leads — nothing on the sheet
+  would flag it. <strong>Give the price its own column and point all four at it</strong>, so it is
+  typed once per day. If you paste the engine above, its <code>Check rev path</code> also has an
+  <code>8</code> in it — that would have to become the price cell too, or it will read a false error
+  on every $9 row.
+</div>
 
 <div class="tw"><table>
   <thead><tr><th>Cell</th><th>Name</th><th>Formula</th><th class="n">Today</th></tr></thead>
@@ -436,57 +476,74 @@ formula which is accidentally right at today's numbers and wrong everywhere else
 is fixed:</p>
 
 <div class="tw"><table>
-  <thead><tr><th>Cell</th><th>Formula now</th><th class="n">7 Aug</th><th class="n">8 Aug</th><th>Verdict</th></tr></thead>
+  <thead><tr><th>Cell</th><th>Formula now</th><th class="n">7 Aug</th><th class="n">10 Aug</th><th class="n">11 Aug</th><th>Verdict</th></tr></thead>
   <tbody>
-    <tr><td><code>K</code> Total Rev</td><td><code>=(B2+C2+D2)*8</code></td><td class="n">200</td><td class="n">520</td><td class="ok">✓ true revenue</td></tr>
-    <tr><td><code>L</code> Tyson</td><td><code>=(K2-I2-J2)/2-(H2-I2)</code></td><td class="n pos">+332.655</td><td class="n pos">+130.275</td><td class="ok">✓ correct</td></tr>
-    <tr><td><code>M</code> Berry</td><td><code>=(K2-I2-J2)/2-(F2+G2-J2)</code></td><td class="n neg">−332.655</td><td class="n neg">−130.275</td><td class="ok">✓ correct</td></tr>
-    <tr><td><code>I4</code></td><td>deleted</td><td class="n">—</td><td class="n">—</td><td class="ok">✓ gone</td></tr>
+    <tr><td><code>K</code> Total Rev</td><td><code>=(B2+C2+D2)*8</code> · <code>*9</code> below</td><td class="n">200</td><td class="n">2,160</td><td class="n">297</td><td class="ok">✓ true revenue</td></tr>
+    <tr><td><code>L</code> Tyson</td><td><code>=(K2-I2-J2)/2-(H2-I2)</code></td><td class="n pos">+332.655</td><td class="n pos">+497.125</td><td class="n pos">+173.15</td><td class="ok">✓ correct</td></tr>
+    <tr><td><code>M</code> Berry</td><td><code>=(K2-I2-J2)/2-(F2+G2-J2)</code></td><td class="n neg">−332.655</td><td class="n neg">−497.125</td><td class="n neg">−173.15</td><td class="ok">✓ correct</td></tr>
+    <tr><td><code>N</code>/<code>O</code> Profit</td><td><code>=(K2-I2-J2)/2</code></td><td class="n neg">−314.655</td><td class="n pos">+170.875</td><td class="n neg">−131.15</td><td class="ok">✓ correct</td></tr>
+    <tr><td><code>P</code>/<code>Q</code> transfers</td><td>typed by hand</td><td class="n">500</td><td class="n">—</td><td class="n">—</td><td class="bad">✗ nothing reads them</td></tr>
   </tbody>
 </table></div>
 
-<p>Two things I specifically confirmed rather than assumed:</p>
+<p>Three things I specifically confirmed rather than assumed:</p>
 <ul>
-  <li><strong>Row 3 really does inherit row 2's formulas.</strong> In the file they are stored as shared
-      formulas spanning <code>L2:L3</code> and <code>M2:M3</code> — so the fix carries to the new row,
-      it wasn't typed in twice.</li>
-  <li><strong>The sign is now the right way round.</strong> <code>L</code> is positive on both days,
-      which reads correctly as <em>Tyson receives</em>. The old version had this inverted.</li>
+  <li><strong>Rows 3 and 4 really do inherit row 2's formulas.</strong> In the file the settlement and
+      profit columns are stored as shared formulas spanning <code>L2:L4</code>, <code>M2:M4</code>,
+      <code>N2:N4</code> and <code>O2:O4</code> — the fix carries to new rows, it wasn't retyped.</li>
+  <li><strong>The sign is the right way round on all three days.</strong> <code>L</code> is positive
+      every time, which reads correctly as <em>Tyson receives</em>.</li>
+  <li><strong>Every revenue cell agrees with its lead count</strong> at the day's price, and every
+      Actual Cost is exactly <code>Spent × 0.67</code>. I re-derived all of it from the raw lead
+      counts rather than reading the sheet's own totals.</li>
 </ul>
 
 <div class="warn">
-  <strong>Two things that still have no guard</strong>
-  Your sheet has no check cells, so if a lead count or a spend is ever mistyped, nothing will tell you —
-  the settlement just comes out quietly wrong. That is what the fuller engine further down adds. It is
-  optional; your current three formulas are correct as they stand.
-  <br><br>
-  And <strong>the <code>0.67</code> is still an unexplained constant</strong> sitting inside
-  <code>I2</code>. Across these two days it writes off <strong>$580.14</strong> of spend. If that is a
-  rebate you have not actually received yet, every settlement here is understated. It is the one
-  question I have asked three times and still cannot answer for you.
+  <strong>Three things that still have no guard</strong>
+  <strong style="font-weight:600;display:block;margin:10px 0 4px">1. The transfer columns are dead.</strong>
+  <code>P</code> holds the $500 and <strong>no formula on the sheet touches it</strong> — the sheet
+  still thinks Berry owes the full $1,002.93. The <code>R</code> column above fixes that in one paste.
+  <strong style="font-weight:600;display:block;margin:10px 0 4px">2. No check cells.</strong>
+  If a lead count or a spend is ever mistyped, nothing will tell you — the settlement just comes out
+  quietly wrong. That is what the fuller engine below adds; it is optional.
+  <strong style="font-weight:600;display:block;margin:10px 0 4px">3. The <code>0.67</code> is still an unexplained constant.</strong>
+  Across these three days it writes off <strong>$1,471.14</strong> of spend. If that is a rebate you
+  have not actually received yet, every settlement here is understated. It is the one question I have
+  asked three times and still cannot answer for you.
 </div>
 
 <h2>The verdict on the business, separately</h2>
 
 <div class="card">
-  <p style="margin-bottom:10px"><strong>The split was never the problem.</strong></p>
-  <p style="margin-bottom:8px">Those 25 leads cost <strong>$33.17 each</strong> to produce and sold for
-  <strong>$8</strong>. You lose <strong>$25.17 on every lead you sell</strong>, and revenue covered
-  <strong>24%</strong> of cost.</p>
-  <p style="margin-bottom:0">To break even on that $1,193 spend at $8 a lead you needed
-  <strong>104 leads</strong>. You got 25. Fixing the formula tells you the loss honestly; it does not
-  make it smaller. The lever is cost-per-lead or price-per-lead, not the split.</p>
+  <p style="margin-bottom:10px"><strong>The split was never the problem — volume is.</strong></p>
+  <div class="tw"><table style="margin-top:0">
+    <thead><tr><th>Day</th><th class="n">Leads</th><th class="n">Cost per lead</th><th class="n">Sold at</th><th class="n">Margin per lead</th></tr></thead>
+    <tbody>
+      <tr><td>7 August</td><td class="n">25</td><td class="n">$33.17</td><td class="n">$8</td><td class="n neg">−$25.17</td></tr>
+      <tr><td>10 August</td><td class="n">240</td><td class="n">$7.58</td><td class="n">$9</td><td class="n pos">+$1.42</td></tr>
+      <tr><td>11 August</td><td class="n">33</td><td class="n">$16.95</td><td class="n">$9</td><td class="n neg">−$7.95</td></tr>
+      <tr class="total"><td>Three days</td><td class="n">298</td><td class="n">$10.76</td><td class="n">$8.92</td><td class="n neg">−$1.85</td></tr>
+    </tbody>
+  </table></div>
+  <p style="margin-bottom:8px">Read down the leads column. <strong>The only profitable day is the one
+  where you got 240 leads.</strong> The 25-lead day and the 33-lead day both lost money on the same
+  kind of spend — because the cost does not shrink when the leads do.</p>
+  <p style="margin-bottom:0">On 11 August you spent $790 and needed <strong>63 leads</strong> to break
+  even at $9. You got 33. The margin on your good day is <strong>$1.42 a lead</strong>, which is thin
+  enough that one weak day wipes out several strong ones — over the three days together you are still
+  <strong>$1.85 down on every lead sold</strong>. The lever is cost-per-lead and volume, not the split.</p>
 </div>
 
 <footer>
-  Verdict issued 8 August 2026 against the live sheet, revised the same day after a fourth audit.
-  All figures computed with exact fractions, never floating point. Six properties proved for all inputs
-  and property-tested on 4,000 randomised cases; the sheet formulas separately verified against the
-  model on 3,000 more; the rebuilt engine tested on 2,000 more plus every specific failure mode listed
-  above. Four independent auditors — two briefed to refute rather than confirm — worked over the result
-  and the design. The money figures never moved across any of it:
-  <strong>loss $629.31 · $314.655 each · Berry pays Tyson $332.655</strong>. The fourth audit changed
-  the sheet's controls, not its arithmetic.
+  Issued 8 August 2026, updated 11 August 2026 against the live sheet — three rows (7, 10 and 11
+  August), plus the $500 Berry sent on the first day. All figures computed with exact fractions, never
+  floating point, and re-derived from the raw lead counts rather than the sheet's own totals; every
+  step carries a double-entry assertion, including that the two settlements sum to exactly zero and
+  that each partner lands precisely on his share after paying. Six properties proved for all inputs and
+  property-tested on 4,000 randomised cases; the sheet formulas separately verified against the model
+  on 3,000 more. Independent auditors, briefed to refute rather than confirm, worked over each pass.
+  <strong>Three-day loss $549.86 · $274.93 each · $1,002.93 owed · $500 paid · Berry pays Tyson
+  $502.93.</strong>
 </footer>
 
 </div>
