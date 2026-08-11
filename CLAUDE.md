@@ -42,10 +42,27 @@ $500 of expense, cut reported profit $500 and move each share $250, with no chec
 leads to break even, got 33. ⚠ The `0.67` has now written off **$1,471.14** of $4,458 spend —
 **asked four times, still unanswered.**
 
+🛑 **THE 0.67 IS NOW THE BIGGEST OPEN NUMBER — $735.57 of settlement rides on it.** If the 33% is a
+**pending rebate** rather than money already saved, Tyson is out the gross **$4,458**: net −2,021,
+each −1,010.50, **Berry pays $1,238.50** not $502.93. Put on the page as a two-row table to force the
+answer (asked four times). Honest treatment if pending = book full spend, enter the refund as its own
+line when it lands.
+
 Verified: `settle_0811.py` (exact `Fraction`, re-derived from raw lead counts not the sheet's totals,
-zero-sum + lands-on-share + additivity + partition asserts, R-column and 8-Aug-restore scenarios),
-independent refuting sub-agent, QA PASS (0 contrast failures, 0 console errors, no overflow, 4/4 copy
-buttons).
+zero-sum + lands-on-share + additivity + partition asserts, R-column, 8-Aug-restore and gross-spend
+scenarios), independent refuting sub-agent — **all 10 claims CONFIRMED**, QA PASS (0 contrast
+failures, 0 console errors, no overflow, 4/4 copy buttons).
+
+⚠ **Two claims REFUTED during this pass — do not regress:**
+1. The sub-agent reported rows 3–4 were **"dead hardcoded values"** whose shared-formula inheritance
+   broke when the 8 Aug row was deleted. **FALSE.** An empty `<f t="shared" si="N"/>` **is a live
+   formula** — it inherits the master's expression with offset refs. Parsed with `xml.etree`
+   (not regex): masters are `I2:I4`, `L2:L4`, `M2:M4`, `N2:N4`, `O2:O4`, `F3:F4`, `G3:G4`, `H3:H4`,
+   `K3:K4` — **every cell in rows 3–4 is live.**
+2. My own transient "stray date serial in `P3`" was a **regex artifact**: `<c r="P3" s="4"/>` is
+   self-closing, so `<c r="P3"[^>]*>(.*?)</c>` ran past it and captured `A4`. **`P3` is empty.**
+⇒ **Parse xlsx with an XML parser, never a regex** — self-closing tags and shared formulas both lie
+to a regex, in opposite directions.
 
 ---
 
