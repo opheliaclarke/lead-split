@@ -28,12 +28,16 @@ Berry 948 − 220 − 500 = **+228**; both land on −274.93. Additivity re-conf
 ⭐ **Bob's "$314" was the SHARE OF LOSS, not the obligation.** Day 1 Berry also held +$18 (collected 48,
 paid 30), so he owed **332.655**; the $500 **overpaid by $167.345** — after day 1 Tyson owed *Berry*.
 
-⭐ **Shipped: column `R` makes the sheet subtract transfers itself** —
-`R2 =SUM($L$2:L2)-SUM($P$2:P2)+SUM($Q$2:Q2)` → −167.345 / 329.78 / **502.93**. ⚠ **`P` (Berry To
-Tyson) and `Q` (Tyson To Berry) existed but NO formula read them** — the sheet still thought Berry
-owed the full 1,002.93.
-🛑 **The v2 engine must NOT be pasted any more** — it starts at `K1` and runs to `V`, so it would
-**overwrite `P` and destroy the record of the $500**, silently. Warning added to the page.
+⭐ **Column `R` OFFERED as a paste block — ⚠ NOT in the live sheet.** `R2
+=SUM($L$2:L2)-SUM($P$2:P2)+SUM($Q$2:Q2)` → −167.345 / 329.78 / **502.93**. Max populated column is
+still `Q`, so **anyone reading the sheet today sees `L` summing to $1,002.93 with no credit for the
+$500.** ⚠ **`P` (Berry To Tyson) and `Q` (Tyson To Berry) exist but NO formula reads them.**
+🛑 **The v2 engine must NOT be pasted** — it starts at `K1` and runs to `V`, so it **overwrites `P`
+and destroys the record of the $500**, silently. ⚠⚠ **THIS ACTUALLY HAPPENED 2026-08-11**: a CSV pull
+mid-session caught the engine layout live with `Berry To Tyson` gone; undone within ~1 min and the
+$500 is back. ⭐ Silver lining — while it was live the engine reproduced **identical** settlements
+(332.655 / 497.125 / 173.15) by a **different formula path**, which is a free independent cross-check.
+⚠ **Poll a shared sheet more than once before answering** — it moves under you.
 ⚠ A partner-to-partner transfer is **never** a cost: typing the $500 into `Spent`/`TFN` would invent
 $500 of expense, cut reported profit $500 and move each share $250, with no check firing.
 
